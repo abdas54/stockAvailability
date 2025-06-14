@@ -4,7 +4,7 @@
     <Page id="page" title="{i18n>title}" enableScrolling="true">
         <content>
       <!--change="getStockDetailManually"-->
-        <Input class="sapUiSmallMarginBegin sapUiSmallMarginTop" placeholder="Enter or Scan Material" change="getStockDetailManually" value="{StockModel>/inpMatCode}"  width="75%"
+        <Input class="sapUiSmallMarginBegin sapUiMediumMarginTop " id="inputSales" placeholder="Enter or Scan Material" change="getStockDetailManually" value="{StockModel>/inpMatCode}"  width="75%"
 		showSuggestion="true" suggestionRows="{suggestionModel>/suggestions}"
 							filterSuggests="false" enableTableAutoPopinMode="true" suggest="onSuggest" suggestionItemSelected="onSuggestionStockSelected"
 							showTableSuggestionValueHelp="false">
@@ -38,9 +38,10 @@
 								<FlexItemData growFactor="1"/>
 							</layoutData>
 						</Input>
-						<ndc:BarcodeScannerButton class="sapUiSmallMarginBegin sapUiSmallMarginTop" id="stockScanner" scanSuccess="onScanSuccessOne"
+						<Button class="sapUiMediumMarginTop sapUiSmallMarginBegin" type="Transparent"  icon="sap-icon://qr-code" press="onScan" />
+						<!-- <ndc:BarcodeScannerButton class="sapUiSmallMarginBegin sapUiMediumMarginTop" id="stockScanner" scanSuccess="onScanSuccessOne"
 							scanFail="onScanErrorOne" inputLiveUpdate="onScanLiveUpdate" dialogTitle="Barcode Scanner Button1 Sample"
-							keepCameraScan="{/keepCameraScanOne}"/>
+							keepCameraScan="{/keepCameraScanOne}"/> -->
 			<VBox class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiSmallMarginEnd">
 				
 				<Table id="materialTable"  items="{StockModel>/Product}">

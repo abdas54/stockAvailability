@@ -3,12 +3,13 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
 	"sap/m/MessageToast",
 	"sap/ui/core/Fragment",
-    "sap/m/MessageBox"
+    "sap/m/MessageBox",
+    "sap/ndc/BarcodeScanner"
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,JSONModel,MessageToast,Fragment,MessageBox) {
+    function (Controller,JSONModel,MessageToast,Fragment,MessageBox,BarcodeScanner) {
         "use strict";
         var that;
         return Controller.extend("com.eros.stockavailability.controller.MainView", {
@@ -82,6 +83,22 @@ sap.ui.define([
             },
             onScanErrorOne: function(oEvent){
                 MessageToast.show("Scan Failed");
+            },
+             onScan: function () {
+                var that = this;
+                BarcodeScanner.scan(
+                    function (mResult) {
+
+                        if (!mResult.cancelled) {
+                            that.getStockDetail(true,mResult.text);
+                           
+                        }
+                    },
+                    function (Error) {
+                        window.alert("Scanning Failed :" + Error)
+                    }
+                )
+
             },
             onSuggest: function (oEvent) {
                 var that = this;
