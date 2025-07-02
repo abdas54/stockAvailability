@@ -104,7 +104,16 @@ sap.ui.define([
                 var that = this;
                 this.openMessageBox = false;
                 var sValue = oEvent.getParameter("suggestValue");
-                if (sValue.length > 0) { // Suggest only when user types 3 or more characters
+                that._lastSuggestTimestamp = Date.now();
+                var requestTimestamp = that._lastSuggestTimestamp;
+                if (sValue.length > 0) {
+                     var oSuggestionModel = that.getView().getModel("suggestionModel");
+                    if (!oSuggestionModel) {
+                        oSuggestionModel = new sap.ui.model.json.JSONModel({ suggestions: [] });
+                        that.getView().setModel(oSuggestionModel, "suggestionModel");
+                    } else {
+                        oSuggestionModel.setProperty("/suggestions", []);
+                    } // Suggest only when user types 3 or more characters
                     var aFilters = [new sap.ui.model.Filter("Itemcode", sap.ui.model.FilterOperator.Contains, sValue)];
                     this.oModel.read("/MaterialSet", {
                         urlParameters: {
@@ -113,10 +122,13 @@ sap.ui.define([
                         filters: aFilters,
                         success: function (oData) {
                             if (oData.results.length > 0) {
-
-                                var oSuggestionModel = new sap.ui.model.json.JSONModel({ suggestions: [] });
-                                oSuggestionModel.setProperty("/suggestions", oData.results);
-                                that.getView().setModel(oSuggestionModel, "suggestionModel");
+                                  if (requestTimestamp !== that._lastSuggestTimestamp) {
+                                    return;
+                                }
+                                else {
+                                    oSuggestionModel.setProperty("/suggestions", oData.results);
+                                }
+                              
 
                             }
 
