@@ -38,7 +38,8 @@
 								<FlexItemData growFactor="1"/>
 							</layoutData>
 						</Input>
-						<Button class="sapUiMediumMarginTop sapUiSmallMarginBegin" type="Transparent"  icon="sap-icon://qr-code" press="onScan" />
+						<core:Icon src="sap-icon://qr-code" size="2rem" class="sapUiSmallMarginBegin sapUiSmallMarginEnd sapUiTinyMarginTop" press="onScan"/>
+						<!-- <Button class="sapUiMediumMarginTop sapUiSmallMarginBegin" type="Transparent"  icon="sap-icon://qr-code" press="onScan" /> -->
 						<!-- <ndc:BarcodeScannerButton class="sapUiSmallMarginBegin sapUiMediumMarginTop" id="stockScanner" scanSuccess="onScanSuccessOne"
 							scanFail="onScanErrorOne" inputLiveUpdate="onScanLiveUpdate" dialogTitle="Barcode Scanner Button1 Sample"
 							keepCameraScan="{/keepCameraScanOne}"/> -->
